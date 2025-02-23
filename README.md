@@ -1,6 +1,6 @@
 # 🚀 Backend - Funcionalidad y Documentación  
 
-Este backend está desarrollado en **.NET 9 WEP API ** y utiliza **SQL Server** como base de datos.  
+Este backend está desarrollado en **.NET 9 WEP API** y utiliza **SQL Server** como base de datos.  
 Expone una API RESTful para la gestión y consulta de datos.  
 
 ## 📌 Funcionalidad  
