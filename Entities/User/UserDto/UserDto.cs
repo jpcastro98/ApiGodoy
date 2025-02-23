@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ApiGodoy.Models.Dto
+namespace ApiGodoy.Entities.User.UserDto
 {
-    public class UserDTO : CreateUserDataDTO
+    public class UserDto: CreateUserDto
     {
         [Required(ErrorMessage = "El id de el usuario no es obligatorio")]
         public int Id { get; set; }

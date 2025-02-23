@@ -1,15 +1,18 @@
-﻿using ApiGodoy.Models;
-using ApiGodoy.Models.Dto;
+﻿using ApiGodoy.Entities.User.UserDto;
+using ApiGodoy.Entities.UserData;
+using ApiGodoy.Entities.UserData.UserDataDto;
 using AutoMapper;
 
-namespace ApiGodoy.ApiMapper
+namespace ApiGodoyCordoba.Application.ApiMapper
 {
-    public class UserDataProfile : Profile
+    public class UserProfile : Profile
     {
-        public UserDataProfile()
+        public UserProfile()
         {
-            CreateMap<User, CreateUserDTO>().ReverseMap();
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<UserDataModel, CreateUserDataDto>().ReverseMap();
+            CreateMap<UserDataModel, UserDataDto>().ReverseMap();
+            CreateMap<UpdateUserDataDto, UserDataModel>();
+            CreateMap<UserDataModel, ResultUserDataDto >().ReverseMap();
         }
 
     }

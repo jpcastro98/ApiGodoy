@@ -22,7 +22,64 @@ namespace ApiGodoy.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ApiGodoy.Models.User", b =>
+            modelBuilder.Entity("ApiGodoy.Entities.SessionHistory.SessionHistoryModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("LastLogin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SessionHistory");
+                });
+
+            modelBuilder.Entity("ApiGodoy.Entities.UserData.UserDataModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("IdentificationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastNames")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Names")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UsersData");
+                });
+
+            modelBuilder.Entity("ApiGodoy.User.UserModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -47,53 +104,32 @@ namespace ApiGodoy.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ApiGodoy.Models.UserData", b =>
+            modelBuilder.Entity("ApiGodoy.Entities.SessionHistory.SessionHistoryModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("IdentificationNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("LastNames")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Names")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("UsersData");
-                });
-
-            modelBuilder.Entity("ApiGodoy.Models.UserData", b =>
-                {
-                    b.HasOne("ApiGodoy.Models.User", "User")
-                        .WithOne("UserData")
-                        .HasForeignKey("ApiGodoy.Models.UserData", "UserId")
+                    b.HasOne("ApiGodoy.User.UserModel", "User")
+                        .WithMany("SessionHistory")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ApiGodoy.Models.User", b =>
+            modelBuilder.Entity("ApiGodoy.Entities.UserData.UserDataModel", b =>
                 {
+                    b.HasOne("ApiGodoy.User.UserModel", "User")
+                        .WithOne("UserData")
+                        .HasForeignKey("ApiGodoy.Entities.UserData.UserDataModel", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ApiGodoy.User.UserModel", b =>
+                {
+                    b.Navigation("SessionHistory");
+
                     b.Navigation("UserData");
                 });
 #pragma warning restore 612, 618

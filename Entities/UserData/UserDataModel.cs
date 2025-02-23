@@ -1,16 +1,17 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using ApiGodoy.Entities.SessionHistory;
+using ApiGodoy.User;
 
-namespace ApiGodoy.Models
+namespace ApiGodoy.Entities.UserData
 {
-    public class UserData
+    public class UserDataModel
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [StringLength(20)]
         public string IdentificationNumber { get; set; }
 
         [Required]
@@ -20,9 +21,11 @@ namespace ApiGodoy.Models
         [Required]
         [StringLength(100)]
         public string LastNames { get; set; }
-       
-        public int UserId { get; set; }
-        public User User { get; set; } = null!;
 
+        public int Score { get; set; }
+        public int UserId { get; set; }
+        public UserModel User { get; set; } = null!;
+
+        
     }
 }
