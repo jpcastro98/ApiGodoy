@@ -20,9 +20,9 @@ namespace ApiGodoy.Controllers.User
             _userService = userService;
 
         }
-        // GET: api/<ValuesController>
+        // GET: api/user
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         
@@ -31,15 +31,15 @@ namespace ApiGodoy.Controllers.User
             return Ok(await _userService.GetAll());
         }
 
-        // GET api/<ValuesController>/5
+        // GET api/user/5
         [HttpGet("{id}")]
-        
+        [Authorize]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<ValuesController>
+        // POST api/user
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -50,9 +50,9 @@ namespace ApiGodoy.Controllers.User
             });
         }
 
-        // PUT api/<ValuesController>/5
+        // PUT api/user/5
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateUserDto userDto)
         {
             if (userDto == null || id <= 0) return BadRequest("Datos inválidos.");
@@ -61,7 +61,7 @@ namespace ApiGodoy.Controllers.User
         }
 
 
-        // DELETE api/<ValuesController>/5
+        // DELETE api/user/5
         [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> Delete(int id)
